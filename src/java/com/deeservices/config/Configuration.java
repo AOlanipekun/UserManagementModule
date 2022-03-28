@@ -15,13 +15,13 @@ public enum Configuration {
     INSTANCE;
     private final Preferences prefs = Preferences.systemRoot().node(this.getClass().getName());
 
-    public String getJDBCIMaxConnection() {
-        if (prefs.get("JDBCMICAConnection", "").equalsIgnoreCase("")) {
-            prefs.put("JDBCMICAConnection", "jdbc/mica");
+    public String getJDBCUMMConnection() {
+        if (prefs.get("JDBCUMMConnection", "").equalsIgnoreCase("")) {
+            prefs.put("JDBCUMMConnection", "jdbc/umm");
         }
 
-        System.out.println(prefs.get("JDBCMICAConnection", ""));
-        return prefs.get("JDBCMICAConnection", "");
+        System.out.println(prefs.get("JDBCUMMConnection", ""));
+        return prefs.get("JDBCUMMConnection", "");
     }
 
 }

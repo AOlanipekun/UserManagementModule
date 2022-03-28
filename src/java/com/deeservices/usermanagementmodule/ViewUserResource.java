@@ -4,13 +4,18 @@
  */
 package com.deeservices.usermanagementmodule;
 
+import com.sun.xml.internal.messaging.saaj.util.Base64;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonException;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -47,11 +52,25 @@ public class ViewUserResource {
     public Response postJson(@Context HttpServletRequest headers, String content) {
         try {
             HttpServletRequest temp = headers;
+            Properties prop = new Properties();
+            String sfile = "allconfig.properties";
+            InputStream istream = getClass().getClassLoader().getResourceAsStream(sfile);
 
-            String i = temp.getHeader("Authorization");
-            byte[] keypri = i.getBytes();
+            if (istream != null) {
+                prop.load(istream);
+            } else {
+                String sresponse = "{\"StatusCode\": \"95\",\"Code\":\"Invalid Property File\",\"StatusResponse\":\"Incorrect Authorization\"}";
+                return Response.status(Response.Status.UNAUTHORIZED).entity(sresponse).build();
 
-            if ("admin123".equals(i)) {
+            }
+            String i = temp.getHeader("Authorization")
+                    .replaceFirst("Basic", "")
+                    .trim();
+            String keypri = Base64.base64Decode(i.trim());
+
+            String AuthPassword = prop.getProperty("AuthPassword");
+
+            if (AuthPassword.equals(keypri)) {
                 /**
                  * ***********************Do resource Logic
                  * here******************
@@ -69,7 +88,7 @@ public class ViewUserResource {
                 } else {
 
                     JsonReader jsonReaderOutput = Json.createReader(new StringReader(mapResponse.toString()));
-                    JsonObject jsonOutput = jsonReaderOutput.readObject();
+                    JsonArray jsonOutput = jsonReaderOutput.readArray();
                     System.out.println(jsonOutput);
 
                     /**

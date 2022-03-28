@@ -19,7 +19,7 @@ public class DatabaseConnection {
 
     public java.sql.Connection getConnection() throws Exception {
         Context ctx = new InitialContext();
-        DataSource ds = (DataSource) ctx.lookup(Configuration.INSTANCE.getJDBCIMaxConnection());
+        DataSource ds = (DataSource) ctx.lookup(Configuration.INSTANCE.getJDBCUMMConnection());
         return ds.getConnection();
     }
 

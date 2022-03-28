@@ -232,7 +232,7 @@ public class User {
                 User mr = new User();
 
                 mr.setUserName(rs.getString("username"));
-                mr.setPermissions(rs.getInt("permission"));
+                mr.setPermissions(rs.getInt("permissions"));
                 mr.setFName(rs.getString("fname"));
                 mr.setLName(rs.getString("lname"));
                 mr.setEmail(rs.getString("email"));
