@@ -12,6 +12,9 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -146,7 +149,7 @@ public class User {
         this.Activated = Activated;
     }
 
-    public HashMap<String, String> createUser(String UserName,
+    public JSONObject createUser(String UserName,
             String Password,
             int Permissions,
             String FName,
@@ -157,16 +160,15 @@ public class User {
             String DOB,
             String Nationality,
             String PasswordEDate,
-            String SetUpDate,
             boolean Retired,
             boolean Activated) throws Exception {
 
-        HashMap<String, String> map = new HashMap<>();
+        JSONObject map = new JSONObject();
         DatabaseConnection dao = new DatabaseConnection();
         Connection con = dao.getConnection();
         CallableStatement cs = null;
         //System.out.println("username "+username +" password "+password);
-        String sp_userlogin = "{CALL [dbo].[createusersM] (?,?,?,?,?,?,?,?,?,?,?,?,?,?)} ";
+        String sp_userlogin = "{CALL [dbo].[createusers] (?,?,?,?,?,?,?,?,?,?,?,?)} ";
         System.out.println(sp_userlogin);
         cs = con.prepareCall(sp_userlogin);
         cs.setString("username", UserName);
@@ -180,8 +182,8 @@ public class User {
         cs.setString("dob", DOB);
         cs.setString("nationality", Nationality);
         cs.setString("passwordenddate", PasswordEDate);
-        cs.setString("setupdate", SetUpDate);
-        cs.setBoolean("retired", Retired);
+      
+//        cs.setBoolean("retired", Retired);
         cs.setBoolean("activated", Activated);
         try {
             ResultSet rs = cs.executeQuery();
@@ -243,6 +245,104 @@ public class User {
                 mr.setSetUpDate(rs.getString("setupdate"));
                 mr.setActivated(rs.getBoolean("activated"));
                 groupList.add(mr);
+            }
+
+            if (rs != null) {
+                rs.close();
+            }
+        } finally {
+
+            if (cs != null) {
+                cs.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return groupList;
+    }
+
+    public List< Map<String, String>> getUsernew() throws Exception {
+        DatabaseConnection dao = new DatabaseConnection();
+        Connection con = dao.getConnection();
+        List< Map<String, String>> groupList = new ArrayList<>();
+
+        String query = ("{call [dbo].[ViewUser]}");
+
+        java.sql.PreparedStatement cs = con.prepareStatement(query);
+
+        boolean result = cs.execute();
+        while (!result) {
+            result = cs.getMoreResults();
+        }
+        try {
+            ResultSet rs = cs.getResultSet();
+            while (rs.next()) {
+
+                Map<String, String> mr = new HashMap<>();
+
+                mr.put("username", rs.getString("username"));
+                mr.put("permissions", rs.getString("permissions"));
+                mr.put("fname", rs.getString("fname"));
+                mr.put("lname", rs.getString("lname"));
+                mr.put("email", rs.getString("email"));
+                mr.put("phoneno", rs.getString("phoneno"));
+                mr.put("gender", rs.getString("gender"));
+                mr.put("dob", rs.getString("dob"));
+                mr.put("nationality", rs.getString("nationality"));
+                mr.put("setupdate", rs.getString("setupdate"));
+                mr.put("activated", rs.getString("activated"));
+                groupList.add(mr);
+            }
+
+            if (rs != null) {
+                rs.close();
+            }
+        } finally {
+
+            if (cs != null) {
+                cs.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return groupList;
+    }
+
+    public JSONArray getUserfinal() throws Exception {
+        DatabaseConnection dao = new DatabaseConnection();
+        Connection con = dao.getConnection();
+        JSONArray groupList = new JSONArray();
+
+        String query = ("{call [dbo].[ViewUser]}");
+
+        java.sql.PreparedStatement cs = con.prepareStatement(query);
+
+        boolean result = cs.execute();
+        while (!result) {
+            result = cs.getMoreResults();
+        }
+        try {
+            ResultSet rs = cs.getResultSet();
+            while (rs.next()) {
+
+                Map<String, String> mr = new HashMap<>();
+                mr.put("userid", rs.getString("userid"));
+                mr.put("username", rs.getString("username"));
+                mr.put("permissions", rs.getString("permissions"));
+                mr.put("fname", rs.getString("fname"));
+                mr.put("lname", rs.getString("lname"));
+                mr.put("email", rs.getString("email"));
+                mr.put("phoneno", rs.getString("phoneno"));
+                mr.put("gender", rs.getString("gender"));
+                mr.put("dob", rs.getString("dob"));
+                mr.put("nationality", rs.getString("nationality"));
+                mr.put("setupdate", rs.getString("setupdate"));
+                mr.put("activated", rs.getString("activated"));
+                groupList.put(mr);
             }
 
             if (rs != null) {

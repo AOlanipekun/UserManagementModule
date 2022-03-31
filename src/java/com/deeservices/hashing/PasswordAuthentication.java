@@ -31,7 +31,7 @@ public class PasswordAuthentication {
   /**
    * Each token produced by this class uses this identifier as a prefix.
    */
-  public static final String ID = "$11$";
+  public static final String ID = "$31$";
 
   /**
    * The minimum recommended cost, used by default
@@ -42,7 +42,7 @@ public class PasswordAuthentication {
 
   private static final int SIZE = 128;
 
-  private static final Pattern layout = Pattern.compile("\\$11\\$(\\d\\d?)\\$(.{43})");
+  private static final Pattern layout = Pattern.compile("\\$31\\$(\\d\\d?)\\$(.{43})");
 
   private final SecureRandom random;
 
@@ -77,7 +77,7 @@ public class PasswordAuthentication {
    * 
    * @return a secure authentication token to be stored for later authentication 
    */
-  public String hash(char[] password)
+  public String hash(char[] password) throws Exception
   {
     byte[] salt = new byte[SIZE / 8];
     random.nextBytes(salt);
@@ -132,8 +132,8 @@ public class PasswordAuthentication {
    * 
    * @deprecated Use {@link #hash(char[])} instead
    */
-  @Deprecated
-  public String hash(String password)
+  //@Deprecated
+  public String hash(String password) throws Exception
   {
     return hash(password.toCharArray());
   }

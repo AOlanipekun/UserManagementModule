@@ -4,6 +4,7 @@
  */
 package com.deeservices.usermanagementmodule;
 
+import com.deeservices.hashing.Authorization;
 import com.deeservices.hashing.HashPassword;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * REST Web Service
@@ -50,26 +53,28 @@ public class CreateUserResource {
         try {
             HttpServletRequest temp = headers;
 
-            String i = temp.getHeader("Authorization");
-            byte[] keypri = i.getBytes();
+            String authorization = temp.getHeader("Authorization");
+            Authorization validate = new Authorization();
+            String isvalid = validate.validateAuthorizationCrediential(authorization);
+            if (isvalid != "success") {
+                return Response.status(Response.Status.UNAUTHORIZED).entity(isvalid).build();
 
-            if ("admin123".equals(i)) {
+            } else {
                 JsonReader jsonReader = Json.createReader(new StringReader(content));
                 JsonObject json = jsonReader.readObject();
-                String UserName = json.getString("UserName");
+                String UserName = json.getString("username");
                 String Password = json.getString("password");
-                int Permissions = json.getInt("Permissions");
-                String FName = json.getString("FName");
-                String LName = json.getString("LName");
-                String Email = json.getString("Email");
-                String PhoneNo = json.getString("PhoneNo");
-                String Gender = json.getString("Gender");
-                String DOB = json.getString("DOB");
-                String Nationality = json.getString("Nationality");
-                String PasswordEDate = json.getString("PasswordEndDate");
-                String SetUpDate = json.getString("SetUpDate");
-                boolean Retired = json.getBoolean("Retired");
-                boolean Activated = json.getBoolean("Activated");
+                String Permissions = json.getString("permissions");
+                String FName = json.getString("fname");
+                String LName = json.getString("lname");
+                String Email = json.getString("email");
+                String PhoneNo = json.getString("phoneno");
+                String Gender = json.getString("gender");
+                String DOB = json.getString("dob");
+                String Nationality = json.getString("nationality");
+                String PasswordEDate = json.getString("passwordenddate");
+                String Retired = json.getString("retired");
+                String Activated = json.getString("activated");
 
                 System.out.println("Username:" + UserName);
                 System.out.println("Password:" + Password);
@@ -83,14 +88,13 @@ public class CreateUserResource {
                 HashPassword hp = new HashPassword();
 
                 Map<String, String> mapResponse = new HashMap<>();
-                List<Map<String, String>> mapList = new ArrayList<>();
-                Map<String, String> map = new LinkedHashMap<>();
+                JSONObject map = new JSONObject();
 
-                String hpPassword = hp.createpassword(Password);
-
-                mapResponse = sresponse.createUser(UserName.trim(),
+                // String hpPassword = hp.createpassword(Password);
+                String hpPassword = Password;
+                map = sresponse.createUser(UserName.trim(),
                         hpPassword.trim(),
-                        Permissions,
+                        Integer.valueOf(Permissions),
                         FName.trim(),
                         LName.trim(),
                         Email.trim(),
@@ -99,35 +103,25 @@ public class CreateUserResource {
                         DOB.trim(),
                         Nationality.trim(),
                         PasswordEDate.trim(),
-                        SetUpDate.trim(),
-                        Retired,
-                        Activated);
-                if (mapResponse.size() > 0) {
-                    map.put("StatusCode", "0");
-                    map.put("StatusResponse", "User Created Successfully");
-                    mapList.add(map);
-                } else {
+                        Boolean.valueOf(Retired),
+                        Boolean.valueOf(Activated));
+                if (!(map.length() > 0)) {
+
                     map.put("StatusCode", "0");
                     map.put("StatusResponse", "Username does not exist");
-                    mapList.add(map);
+
                 }
 
-                JsonReader jsonReaderOutput = Json.createReader(new StringReader(mapList.toString()));
-                JsonObject jsonOutput = jsonReaderOutput.readObject();
-                System.out.println(jsonOutput);
+                String listString = map.toString();
+                return Response.status(Response.Status.OK).entity(listString).build();
 
                 /**
                  * ***************************End*********************************
                  */
-                return Response.status(Response.Status.OK).entity(jsonOutput.toString()).build();
-            } else {
-            String sresponse = "{\"StatusCode\": \"97\",\"Code\":\"Unauthorized User\",\"StatusResponse\":\"Incorrect Authorization\"}";
-            return Response.status(Response.Status.valueOf("Json EXCEPTION")).entity(sresponse).build();
-
             }
         } catch (JsonException ex) {
             String sresponse = "{\"StatusCode\": \"98\",\"Code\":\"Unauthorized User\",\"StatusResponse\":\"" + ex.getMessage() + "\"}";
-            return Response.status(Response.Status.valueOf("Json EXCEPTION")).entity(sresponse).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(sresponse).build();
 //            Logger.getLogger(TemplateResource.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             String sresponse = "{\"StatusCode\": \"99\",\"Code\":\"Unauthorized User\",\"StatusResponse\":\"" + ex.getMessage() + "\"}";

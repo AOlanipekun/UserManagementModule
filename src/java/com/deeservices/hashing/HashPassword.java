@@ -11,10 +11,11 @@ package com.deeservices.hashing;
  */
 public class HashPassword {
 
-    public String createpassword(String password) {
+    public String createpassword(String password) throws
+            Exception {
         PasswordAuthentication pssword = new PasswordAuthentication(24);//lenght
         String map = pssword.hash(password);
-        if (map.isEmpty()) {
+        if (map.length() == 0) {
             return "Hash not generated";
         } else {
             return map;

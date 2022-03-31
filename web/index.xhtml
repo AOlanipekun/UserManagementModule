@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>UMM | User Management</title>
+        <!--<meta charset="UTF-8"> </meta>-->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+        <link rel="stylesheet" href="resources/css/main.css"/>
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+
+        <form>
+            <div title="user management" class="new-user-landing-row row">
+                <div class="w3-col herodiv">
+                    <h1>USER MANAGEMENT MODULE</h1>
+                </div>
+            </div>
+
+            <div class=" row ws-black"> 
+
+                <div class="feature-list col-md-4">
+
+                    <h3> 
+                        <a href="index.xhtml">
+                            <i class="fa fa-dashboard"></i>
+                            <span> View users</span>
+                        </a>
+                    </h3>
+                </div>
+                <div class="feature-list col-md-4">
+                    <h3> 
+                        <a href="createuser.xhtml">
+                            <i class="fa fa-dashboard"></i>
+                            <span> Create User</span>
+                        </a>
+                    </h3>
+                </div>
+                <div class="feature-list col-md-4">
+                    <h3> 
+                        <a href="edituser.html">
+                            <i class="fa fa-dashboard"></i>
+                            <span> Edit User</span>
+                        </a>
+                    </h3>
+
+                </div>
+
+            </div>
+            <div class="row" style="margin-top:5px">
+                <label id="emessage" style="font-weight: bold"></label>
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <div class="card-body user" style="margin-top: 5px">
+
+                            <div>
+                                <table>
+                                    <thead>
+                                        <tr class="userTableHeader">
+                                            <th>User ID</th>
+                                            <th>Username</th>
+                                            <th>Permission</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Phone No</th>
+                                            <th>Gender</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="#{jsonViews.disList}" var="user"
+                                                   varStatus="status1">
+                                            <tr>
+                                                <td><h:outputText value="#{user.userid}" /></td>
+
+                                                <td><h:outputText value="#{user.userName}" /></td>
+
+                                                <td><h:outputText value="#{user.permissions}" /></td>
+
+                                                <td><h:outputText value="#{user.FName}" /></td>
+
+                                                <td><h:outputText value="#{user.LName}" /></td>
+
+                                                <td><h:outputText value="#{user.email}" /></td>
+
+                                                <td><h:outputText value="#{user.phoneNo}" /></td>
+
+                                                <td><h:outputText value="#{user.gender}" /></td></tr>
+                                        </c:forEach>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

@@ -7,6 +7,7 @@ package com.deeservices.apiconnect;
 import com.deeservices.usermanagementmodule.User;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -16,11 +17,11 @@ import javax.faces.bean.ViewScoped;
  *
  * @author ADEDOYIN
  */
-@ManagedBean(name = "jsonViewsss")
+@ManagedBean(name = "jsonViews")
 @ViewScoped
 public class ViewUser implements Serializable{
     private boolean isDisplayCreateGroupPanel,isDisplayEditGroupPanel, isDisplayViewGroupPanel;
-   private List disList = new ArrayList<>();
+   private List<ViewItems> disList = new ArrayList<>();
 
     public boolean isIsDisplayCreateGroupPanel() {
         return isDisplayCreateGroupPanel;
@@ -59,8 +60,8 @@ public class ViewUser implements Serializable{
         this.setIsDisplayViewGroupPanel(false);
     } 
 
-  public List<User> getAll() {
-        List age = null;
+  public List<HashMap<String, Object>> getAll() {
+        List<HashMap<String, Object>> age = null;
         try {
             age = new ViewUserApi().viewUser();
         } catch (Exception e) {
@@ -68,11 +69,11 @@ public class ViewUser implements Serializable{
         return age;
     }
 
-    public List getDisList() {
+    public List<ViewItems> getDisList() {
         return disList;
     }
 
-    public void setDisList(List disList) {
+    public void setDisList(List<ViewItems> disList) {
         this.disList = disList;
     }
 
@@ -81,7 +82,7 @@ public class ViewUser implements Serializable{
     public void init() {
         try {
             ViewUserApi service =  new ViewUserApi();
-            disList = service.viewUser();
+            disList = service.viewUseritems();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
