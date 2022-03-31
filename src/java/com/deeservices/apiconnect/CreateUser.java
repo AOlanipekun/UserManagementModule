@@ -46,4 +46,45 @@ public class CreateUser implements Serializable {
         }
         return sResponse;
     }
+
+    public String searchRecord() {
+        String sResponse = "";
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            CreateUserAPI service = new CreateUserAPI();
+            service.vi = vi;
+            map = service.createUser(vi);
+
+            if (map.size() > 0) {
+                sResponse = map.get("Errormessage").toString();
+            } else {
+                sResponse = "Record not saved";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            sResponse = "An error occured";
+        }
+        return sResponse;
+    }
+
+    public String editRecord() {
+        String sResponse = "";
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            CreateUserAPI service = new CreateUserAPI();
+            service.vi = vi;
+            map = service.createUser(vi);
+
+            if (map.size() > 0) {
+                sResponse = map.get("Errormessage").toString();
+            } else {
+                sResponse = "Record not saved";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            sResponse = "An error occured";
+        }
+        return sResponse;
+    }
+
 }

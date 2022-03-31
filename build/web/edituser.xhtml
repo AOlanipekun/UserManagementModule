@@ -63,14 +63,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <div class="card-body user" style="margin-top: 5px">
                         <form action="api" method="post">
                             <div class="divc">
-                               
+
                                 <div class="row">
-                                    <div class="col-25"><label for="username">Username: </label></div>
-                                    <div class="col-75">
+                                    <div class="col-25">
+                                        <label for="username">Username: </label>
+                                    </div>
+                                    <div class="col-25">
                                         <input id="username"  type="text" name="username" placeholder="User Name.." />
                                     </div>
+
+                                    <div class="col-25 row"> 
+                                        <input type="button" value="Search" onclick=""/><!-- comment -->
+                                    </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-25">
                                         <label for="password"> Password: </label>
@@ -79,7 +85,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <input id="password"  type="password" name="password" placeholder="password.."/>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-25">
                                         <label>Permission ID: </label></div>
@@ -124,8 +130,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <input name="phoneno"  type="text"/>
                                     </div>
                                 </div>
-                                
-                                 <div class="row">
+
+                                <div class="row">
                                     <div class="col-25">
                                         <label>Nationality: </label>
                                     </div>
@@ -142,8 +148,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <input name="gender"  type="text"/>
                                     </div>
                                 </div>
-                                
-                                 <div class="row">
+
+                                <div class="row">
                                     <div class="col-25">
                                         <label>DOB </label>  
                                     </div>
@@ -160,7 +166,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <input name="passwordenddate"  type="datetime"/>
                                     </div>
                                 </div>
-                                
+
                                 <input type="submit"  onclick="#{create.createRecord()}"/>
 
                             </div>

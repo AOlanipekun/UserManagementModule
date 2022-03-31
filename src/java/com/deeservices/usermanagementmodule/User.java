@@ -161,7 +161,8 @@ public class User {
             String Nationality,
             String PasswordEDate,
             boolean Retired,
-            boolean Activated) throws Exception {
+            boolean Activated,
+            int LogOnOperatorID) throws Exception {
 
         JSONObject map = new JSONObject();
         DatabaseConnection dao = new DatabaseConnection();
@@ -182,7 +183,7 @@ public class User {
         cs.setString("dob", DOB);
         cs.setString("nationality", Nationality);
         cs.setString("passwordenddate", PasswordEDate);
-      
+
 //        cs.setBoolean("retired", Retired);
         cs.setBoolean("activated", Activated);
         try {

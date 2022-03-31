@@ -7,10 +7,7 @@ package com.deeservices.usermanagementmodule;
 import com.deeservices.hashing.Authorization;
 import com.deeservices.hashing.HashPassword;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import javax.json.Json;
 import javax.json.JsonException;
@@ -21,12 +18,10 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -75,6 +70,7 @@ public class CreateUserResource {
                 String PasswordEDate = json.getString("passwordenddate");
                 String Retired = json.getString("retired");
                 String Activated = json.getString("activated");
+                String LogOnOperatorID = json.getString("LogOnOperatorID");
 
                 System.out.println("Username:" + UserName);
                 System.out.println("Password:" + Password);
@@ -104,11 +100,16 @@ public class CreateUserResource {
                         Nationality.trim(),
                         PasswordEDate.trim(),
                         Boolean.valueOf(Retired),
-                        Boolean.valueOf(Activated));
+                        Boolean.valueOf(Activated),
+                        Integer.valueOf(LogOnOperatorID));
                 if (!(map.length() > 0)) {
 
                     map.put("StatusCode", "0");
                     map.put("StatusResponse", "Username does not exist");
+
+                } else {
+                    map.put("StatusCode", "1");
+                    map.put("StatusResponse", map.get("Errormessage"));
 
                 }
 

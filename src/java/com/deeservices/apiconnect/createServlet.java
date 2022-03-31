@@ -68,6 +68,8 @@ public class createServlet extends HttpServlet {
             service.vi.setRetired("0");
             service.vi.setPasswordEDate(request.getParameter("passwordenddate"));
 
+            service.vi.setLogOnOperatorID("1"); //Value will be recieved from the session
+
             map = service.createUser(service.vi);
 
             if (map.size() > 0) {
@@ -81,7 +83,7 @@ public class createServlet extends HttpServlet {
         }
 
         PrintWriter writer = response.getWriter();
-        writer.println("<html>Response: " + sResponse + "</html>");
+        writer.println("<html>Response: " + sResponse + "</html>"); // to navigate to any other page
         writer.flush();
 
     }

@@ -80,6 +80,10 @@ public class CreateUserAPI {
                 mBodies.put("dob", v.getDOB());
                 mBodies.put("nationality", v.getNationality());
                 mBodies.put("activated", v.getActivated());
+                mBodies.put("retired", v.getRetired());
+                mBodies.put("passwordenddate", v.getPasswordEDate());
+
+                mBodies.put("LogOnOperatorID", v.getLogOnOperatorID());
 
                 StringBuilder postData = new StringBuilder();
 
@@ -118,13 +122,10 @@ public class CreateUserAPI {
                     in.close();
 
                     JsonReader jsonReaderOutput = Json.createReader(new StringReader(response.toString()));
-                    JsonArray jsonArray = jsonReaderOutput.readArray();
-                    System.out.println("response size" + jsonArray.size());
 
-                    for (int i = 0; i < jsonArray.size(); i++) {
-                        JsonObject json = jsonArray.getJsonObject(i);
-                        map.put("Errormessage", json.getString("statusResponse"));
-                    }
+                    JsonObject json = jsonReaderOutput.readObject();
+                    map.put("Errormessage", json.getString("StatusResponse"));
+
                 }
             } else {
                 String sresponse = "{\"StatusCode\": \"94\",\"Code\":\"Invalid Property File\",\"StatusResponse\":\"Incorrect Authorization\"}";

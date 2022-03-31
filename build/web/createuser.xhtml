@@ -47,7 +47,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     </div>
                     <div class="feature-list col-md-4">
                         <h3> 
-                            <a href="edituser.html">
+                            <a href="edituser.xhtml">
                                 <i class="fa fa-dashboard"></i>
                                 <span> Edit User</span>
                             </a>
@@ -72,55 +72,93 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                 </div>
                                 
                                 <div class="row">
-                                    <div class="col-25"><label for="userid"> Password: </label></div>
+                                    <div class="col-25">
+                                        <label for="password"> Password: </label>
+                                    </div>
                                     <div class="col-75"> 
-                                        <input id="password"  type="text" name="password" placeholder="password.."/>
+                                        <input id="password"  type="password" name="password" placeholder="password.."/>
                                     </div>
                                 </div>
                                 
                                 <div class="row">
-                                    <div class="col-25"><label>Permission: </label></div>
-                                    <div class="col-75"> <input name="permissions"  type="text" /></div>
+                                    <div class="col-25">
+                                        <label>Permission ID: </label></div>
+                                    <div class="col-75"> 
+                                        <input name="permissions"  type="number"
+                                               placeholder="where 0=customer, 1=admin"/>
+                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-25"><label>First Name: </label></div>
-                                    <div class="col-75"><input name="fname"  type="text" /></div>
+                                    <div class="col-25">
+                                        <label>First Name: </label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input name="fname"  type="text" />
+                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-25"><label>Last Name: </label></div>
-                                    <div class="col-75"> <input name="lname" type="text" /></div>
+                                    <div class="col-25">
+                                        <label>Last Name: </label>
+                                    </div>
+                                    <div class="col-75"> 
+                                        <input name="lname" type="text" />
+                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-25"><label>Email: </label></div>
-                                    <div class="col-75"> <input name="email"  type="text"/></div>
+                                    <div class="col-25">
+                                        <label>Email: </label>
+                                    </div>
+                                    <div class="col-75"> 
+                                        <input name="email"  type="text"/>
+                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-25"><label>Phone No: </label></div>
-                                    <div class="col-75"><input name="phoneno"  type="text"/></div>
+                                    <div class="col-25">
+                                        <label>Phone No: </label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input name="phoneno"  type="text"/>
+                                    </div>
                                 </div>
                                 
                                  <div class="row">
-                                    <div class="col-25"><label>Nationality: </label></div>
-                                    <div class="col-75"><input name="nationality"  type="text"/></div>
+                                    <div class="col-25">
+                                        <label>Nationality: </label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input name="nationality"  type="text"/>
+                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-25"><label>Gender: </label>  </div>
-                                    <div class="col-75">   <input name="gender"  type="text"/></div>
+                                    <div class="col-25">
+                                        <label>Gender: </label> 
+                                    </div>
+                                    <div class="col-75">   
+                                        <input name="gender"  type="text"/>
+                                    </div>
                                 </div>
                                 
                                  <div class="row">
-                                    <div class="col-25"><label>DOB </label>  </div>
-                                    <div class="col-75">   <input name="DOB"  type="text"/></div>
+                                    <div class="col-25">
+                                        <label>DOB </label>  
+                                    </div>
+                                    <div class="col-75">   
+                                        <input name="dob"  type="datetime"/>
+                                    </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-25"><label>Password End Date : </label>  </div>
-                                    <div class="col-75">   <input name="passwordend date"  type="text"/></div>
+                                    <div class="col-25">
+                                        <label>Password End Date : </label>  
+                                    </div>
+                                    <div class="col-75">   
+                                        <input name="passwordenddate"  type="datetime"/>
+                                    </div>
                                 </div>
                                 
                                 <input type="submit"  onclick="#{create.createRecord()}"/>

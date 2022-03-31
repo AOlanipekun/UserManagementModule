@@ -18,12 +18,21 @@ public class ViewItems {
             Gender,
             DOB,
             Nationality,
-            PasswordEDate,
+            PasswordEndDate,
             SetUpDate, Permissions, userid, Retired,
-            Activated;
+            Activated, LogOnOperatorID;
+
 
     public String getUserName() {
         return UserName;
+    }
+
+    public String getLogOnOperatorID() {
+        return LogOnOperatorID;
+    }
+
+    public void setLogOnOperatorID(String LogOnOperatorID) {
+        this.LogOnOperatorID = LogOnOperatorID;
     }
 
     public void setUserName(String UserName) {
@@ -95,11 +104,11 @@ public class ViewItems {
     }
 
     public String getPasswordEDate() {
-        return PasswordEDate;
+        return PasswordEndDate;
     }
 
     public void setPasswordEDate(String PasswordEDate) {
-        this.PasswordEDate = PasswordEDate;
+        this.PasswordEndDate = PasswordEDate;
     }
 
     public String getSetUpDate() {
