@@ -4,11 +4,13 @@
  */
 package com.deeservices.hashing;
 
-import com.sun.xml.internal.messaging.saaj.util.Base64;
+//import com.sun.xml.internal.messaging.saaj.util.Base64;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import javax.ws.rs.core.Response;
+import org.apache.xml.security.exceptions.Base64DecodingException;
+import org.apache.xml.security.utils.Base64;
 
 /**
  *
@@ -16,7 +18,7 @@ import javax.ws.rs.core.Response;
  */
 public class Authorization {
 
-    public String validateAuthorizationCrediential(String val1) throws IOException {
+    public String validateAuthorizationCrediential(String val1) throws IOException, Base64DecodingException {
         String bOutput = "";
         Properties prop = new Properties();
         String sfile = "allconfig.properties";
@@ -42,11 +44,12 @@ public class Authorization {
         }
         authorization = authorization.replaceFirst("Basic", "")
                 .trim();
-        String keypri = Base64.base64Decode(authorization);
+//        String keypri = Base64.base64Decode(authorization);
+        byte[] keypri = Base64.decode(authorization);
 
         String AuthPassword = prop.getProperty("AuthPassword");
 
-        if (AuthPassword.equals(keypri)) {
+        if (AuthPassword.equals(new String(keypri))) {
             bOutput = "success";
         } else {
             String sresponse = "{\"StatusCode\": \"97\",\"Code\":\"Unauthorized User\",\"StatusResponse\":\"Incorrect Authorization\"}";

@@ -4,7 +4,7 @@
  */
 package com.deeservices.apiconnect;
 
-import com.sun.xml.internal.messaging.saaj.util.Base64;
+//import com.sun.xml.internal.messaging.saaj.util.Base64;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StringReader;
@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import javax.json.Json;
@@ -19,7 +20,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonWriter;
-import org.kohsuke.rngom.parse.host.Base;
 
 /**
  *
@@ -44,10 +44,15 @@ public class ViewUserApi {
             //add request header
             String charset = "UTF-8";
             con.setRequestProperty("Accept-Charset", charset);
-            byte[] auth = (Base64.encode("Basic:RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth".getBytes()));
+//            byte[] auth = (Base64.encode("Basic:RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth".getBytes()));
+//
+//            con.setRequestProperty("Authorization",
+//                    String.format("Basic %s", new String(auth)));
+//
+            String auth = (Base64.getEncoder().encodeToString("Basic:RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth".getBytes()));
 
             con.setRequestProperty("Authorization",
-                    String.format("Basic %s", new String(auth)));
+                    String.format("Basic %s", (auth)));
 
             int responseCode = con.getResponseCode();
             System.out.println("\nSending 'Get' request to URL : " + data);
@@ -109,10 +114,14 @@ public class ViewUserApi {
             //add request header
             String charset = "UTF-8";
             con.setRequestProperty("Accept-Charset", charset);
-            byte[] auth = (Base64.encode("Basic:RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth".getBytes()));
+//            byte[] auth = (Base64.encode("Basic:RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth".getBytes()));
+//
+//            con.setRequestProperty("Authorization",
+//                    String.format("Basic %s", new String(auth)));
+            String auth = (Base64.getEncoder().encodeToString("Basic:RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth".getBytes()));
 
             con.setRequestProperty("Authorization",
-                    String.format("Basic %s", new String(auth)));
+                    String.format("Basic %s", (auth)));
 
             int responseCode = con.getResponseCode();
             System.out.println("\nSending 'GET' request to URL : " + data);
