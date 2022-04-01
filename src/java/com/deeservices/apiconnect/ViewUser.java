@@ -19,9 +19,10 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean(name = "jsonViews")
 @ViewScoped
-public class ViewUser implements Serializable{
-    private boolean isDisplayCreateGroupPanel,isDisplayEditGroupPanel, isDisplayViewGroupPanel;
-   private List<ViewItems> disList = new ArrayList<>();
+public class ViewUser implements Serializable {
+
+    private boolean isDisplayCreateGroupPanel, isDisplayEditGroupPanel, isDisplayViewGroupPanel;
+    private List<ViewItems> disList = new ArrayList<>();
 
     public boolean isIsDisplayCreateGroupPanel() {
         return isDisplayCreateGroupPanel;
@@ -58,9 +59,9 @@ public class ViewUser implements Serializable{
     public void hideAllPanels() {
         this.setIsDisplayEditGroupPanel(false);
         this.setIsDisplayViewGroupPanel(false);
-    } 
+    }
 
-  public List<HashMap<String, Object>> getAll() {
+    public List<HashMap<String, Object>> getAll() {
         List<HashMap<String, Object>> age = null;
         try {
             age = new ViewUserApi().viewUser();
@@ -77,11 +78,10 @@ public class ViewUser implements Serializable{
         this.disList = disList;
     }
 
-
- @PostConstruct
+    @PostConstruct
     public void init() {
         try {
-            ViewUserApi service =  new ViewUserApi();
+            ViewUserApi service = new ViewUserApi();
             disList = service.viewUseritems();
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -53,6 +53,53 @@
 			"response": []
 		},
 		{
+			"name": "viewusers Copy",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Basic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/UserManagementModule/api/viewusers/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"UserManagementModule",
+						"api",
+						"viewusers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "createusers",
 			"request": {
 				"auth": {
@@ -80,7 +127,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n     \"fname\": \"bobawale\",\r\n        \"lname\": \"bolakale\",\r\n        \"gender\": \"male\",\r\n        \"nationality\": \"american\",\r\n        \"permissions\": \"0\",\r\n        \"dob\": \"05/02/22\",\r\n        \"userid\": \"1\",\r\n        \"email\": \"b@bobawale.com\",\r\n        \"phoneno\": \"+2341234567890\",\r\n        \"username\": \"bbolakale1\",\r\n        \"password\": \"bbolakale\",\r\n        \"passwordenddate\": \"05/02/2025\",\r\n        \"activated\": \"1\",\r\n        \"retired\": \"0\",\r\n        \"createdby\": \"1\"\r\n}",
+					"raw": "{\r\n     \"fname\": \"bobawale\",\r\n        \"lname\": \"bolakale\",\r\n        \"gender\": \"male\",\r\n        \"nationality\": \"american\",\r\n        \"permissions\": \"0\",\r\n        \"dob\": \"05/02/22\",\r\n        \"userid\": \"1\",\r\n        \"email\": \"b@bobawale.com\",\r\n        \"phoneno\": \"+2341234567890\",\r\n        \"username\": \"bbolakale1\",\r\n        \"password\": \"bbolakale\",\r\n        \"passwordenddate\": \"05/02/2025\",\r\n        \"activated\": \"1\",\r\n        \"retired\": \"0\",\r\n        \"createdby\": \"1\",\r\n        \"LogOnOperatorID\":\"1\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,7 +135,55 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/UserManagementModule/api/createuser/",
+					"raw": "http://safedc.memmserve.com:8080/UserManagementModule/api/createuser/",
+					"protocol": "http",
+					"host": [
+						"safedc",
+						"memmserve",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"UserManagementModule",
+						"api",
+						"createuser",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search for users",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Basic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"bbolakale1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/UserManagementModule/api/edituser/search",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -97,8 +192,56 @@
 					"path": [
 						"UserManagementModule",
 						"api",
-						"createuser",
-						""
+						"edituser",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "RVFxTmwxOTdXTzhPekMzak54Z0R5bTBqcTVvYTp0TV9jYVZEQ1ZqQ2Nsd2NFeGt TTHZBNTc0Tmth",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Basic",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://safedc.memmserve.com:8080/UserManagementModule/api/edituser/edit",
+					"protocol": "http",
+					"host": [
+						"safedc",
+						"memmserve",
+						"com"
+					],
+					"port": "8080",
+					"path": [
+						"UserManagementModule",
+						"api",
+						"edituser",
+						"edit"
 					]
 				}
 			},

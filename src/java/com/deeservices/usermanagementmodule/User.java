@@ -383,7 +383,7 @@ public class User {
         Connection con = dao.getConnection();
         CallableStatement cs = null;
         //System.out.println("username "+username +" password "+password);
-        String sp_userlogin = "{CALL [dbo].[edituser] (?,?,?,?,?,?,?,?,?,?,?,?)} ";
+        String sp_userlogin = "{CALL [dbo].[AlterUser] (?,?,?,?,?,?,?,?,?,?,?,?)} ";
         System.out.println(sp_userlogin);
         cs = con.prepareCall(sp_userlogin);
         cs.setString("username", UserName);

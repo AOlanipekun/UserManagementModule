@@ -10,6 +10,8 @@ import java.io.StringReader;
 import java.lang.invoke.MethodType;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.json.Json;
 import javax.json.JsonException;
 import javax.json.JsonObject;
@@ -143,7 +145,7 @@ public class EditResource {
 
                 // String hpPassword = hp.createpassword(Password);
                 String hpPassword = Password;
-                map = sresponse.createUser(UserName.trim(),
+                map = sresponse.editUser(UserName.trim(),
                         hpPassword.trim(),
                         Integer.valueOf(Permissions),
                         FName.trim(),
@@ -157,7 +159,7 @@ public class EditResource {
                         Boolean.valueOf(Retired),
                         Boolean.valueOf(Activated),
                         Integer.valueOf(LogOnOperatorID));
-                if (!(map.length() > 0)) {
+                if ((map.length() <= 0)) {
 
                     map.put("StatusCode", "0");
                     map.put("StatusResponse", "Username does not exist");
@@ -181,8 +183,8 @@ public class EditResource {
 //            Logger.getLogger(TemplateResource.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             String sresponse = "{\"StatusCode\": \"99\",\"Code\":\"Unauthorized User\",\"StatusResponse\":\"" + ex.getMessage() + "\"}";
+            Logger.getLogger(EditResource.class.getName()).log(Level.SEVERE, null, ex);
             return Response.status(Response.Status.EXPECTATION_FAILED).entity(sresponse).build();
-//            Logger.getLogger(TemplateResource.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
