@@ -313,6 +313,123 @@ public class User {
         return groupList;
     }
 
+    public JSONObject searchUser(String username) throws Exception {
+        DatabaseConnection dao = new DatabaseConnection();
+        Connection con = dao.getConnection();
+        JSONObject groupList = new JSONObject();
+
+        String query = ("{call [dbo].[FindUser] (?)}");
+
+        CallableStatement cs = con.prepareCall(query);
+        cs.setString("username", username);
+
+        boolean result = cs.execute();
+        while (!result) {
+            result = cs.getMoreResults();
+        }
+        try {
+            ResultSet rs = cs.getResultSet();
+            while (rs.next()) {
+
+                Map<String, String> mr = new HashMap<>();
+                mr.put("userid", rs.getString("userid"));
+                mr.put("username", rs.getString("username"));
+                mr.put("permissions", rs.getString("permissions"));
+                mr.put("fname", rs.getString("fname"));
+                mr.put("lname", rs.getString("lname"));
+                mr.put("email", rs.getString("email"));
+                mr.put("phoneno", rs.getString("phoneno"));
+                mr.put("gender", rs.getString("gender"));
+                mr.put("dob", rs.getString("dob"));
+                mr.put("nationality", rs.getString("nationality"));
+                mr.put("setupdate", rs.getString("setupdate"));
+                mr.put("activated", rs.getString("activated"));
+                groupList = new JSONObject(mr);
+            }
+
+            if (rs != null) {
+                rs.close();
+            }
+        } finally {
+
+            if (cs != null) {
+                cs.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return groupList;
+    }
+
+  public JSONObject editUser(String UserName,
+            String Password,
+            int Permissions,
+            String FName,
+            String LName,
+            String Email,
+            String PhoneNo,
+            String Gender,
+            String DOB,
+            String Nationality,
+            String PasswordEDate,
+            boolean Retired,
+            boolean Activated,
+            int LogOnOperatorID) throws Exception {
+
+        JSONObject map = new JSONObject();
+        DatabaseConnection dao = new DatabaseConnection();
+        Connection con = dao.getConnection();
+        CallableStatement cs = null;
+        //System.out.println("username "+username +" password "+password);
+        String sp_userlogin = "{CALL [dbo].[edituser] (?,?,?,?,?,?,?,?,?,?,?,?)} ";
+        System.out.println(sp_userlogin);
+        cs = con.prepareCall(sp_userlogin);
+        cs.setString("username", UserName);
+        cs.setString("password", Password);
+        cs.setString("fname", FName);
+        cs.setString("lname", LName);
+        cs.setInt("permission", Permissions);
+        cs.setString("email", Email);
+        cs.setString("phoneno", PhoneNo);
+        cs.setString("gender", Gender);
+        cs.setString("dob", DOB);
+        cs.setString("nationality", Nationality);
+        cs.setString("passwordenddate", PasswordEDate);
+
+//        cs.setBoolean("retired", Retired);
+        cs.setBoolean("activated", Activated);
+        try {
+            ResultSet rs = cs.executeQuery();
+            if (rs.next()) {
+                ResultSetMetaData rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                for (int i = 1; i < columnCount + 1; i++) {
+                    String name = rsmd.getColumnName(i);
+                    // Do stuff with name
+
+                    map.put(name, rs.getString(name));
+                }
+            }
+            if (rs != null) {
+                rs.close();
+            }
+
+        } finally {
+
+            if (cs != null) {
+                cs.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return map;
+    }
+
+
     public JSONArray getUserfinal() throws Exception {
         DatabaseConnection dao = new DatabaseConnection();
         Connection con = dao.getConnection();

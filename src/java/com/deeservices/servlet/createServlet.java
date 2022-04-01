@@ -2,12 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.deeservices.apiconnect;
+package com.deeservices.servlet;
 
+import com.deeservices.apiconnect.CreateUserAPI;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ADEDOYIN
  */
+@WebServlet("/create")
 public class createServlet extends HttpServlet {
 
     /**
@@ -32,23 +36,13 @@ public class createServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        PrintWriter writer = response.getWriter();
-        writer.println("<html>Hello, I am a Java servlet!</html>");
-        writer.flush();
     }
 
     /**
      * handles HTTP POST request
      */
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-//        String paramWidth = request.getParameter("width");
-//        int width = Integer.parseInt(paramWidth);
-//
-//        String paramHeight = request.getParameter("height");
-//        int height = Integer.parseInt(paramHeight);
-//
-//        long area = width * height;
+            throws IOException, ServletException {
 
         String sResponse = "";
         HashMap<String, Object> map = new HashMap<>();
@@ -74,18 +68,28 @@ public class createServlet extends HttpServlet {
 
             if (map.size() > 0) {
                 sResponse = map.get("Errormessage").toString();
+                request.setAttribute("response", sResponse);
+                if (sResponse.contains("succes")) {
+                    response.sendRedirect("/UserManagementModule/");
+                } else {
+
+                    request.setAttribute("response", sResponse);
+                    request.getRequestDispatcher("/createuser.xhtml").forward(request, response);
+                }
             } else {
                 sResponse = "Record not saved";
+                request.setAttribute("response", sResponse);
+                request.getRequestDispatcher("/createuser.xhtml").forward(request, response);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
             sResponse = "An error occured";
+            request.getRequestDispatcher("/createuser.xhtml").forward(request, response);
         }
 
-        PrintWriter writer = response.getWriter();
-        writer.println("<html>Response: " + sResponse + "</html>"); // to navigate to any other page
-        writer.flush();
-
+//        PrintWriter writer = response.getWriter();
+//        writer.println("<html>Response: " + sResponse + "</html>"); // to navigate to any other page
+//        writer.flush();
     }
 
     /**

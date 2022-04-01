@@ -13,9 +13,9 @@ import javax.faces.bean.RequestScoped;
  *
  * @author ADEDOYIN
  */
-@ManagedBean(name = "create")
+@ManagedBean(name = "edit")
 @RequestScoped
-public class CreateUser implements Serializable {
+public class EditUser implements Serializable {
 
     public ViewItems vi;
 
@@ -27,7 +27,27 @@ public class CreateUser implements Serializable {
         this.vi = vi;
     }
 
-    public String createRecord() {
+    public String searchRecord() {
+        String sResponse = "";
+        HashMap<String, Object> map = new HashMap<>();
+        try {
+            EditUserAPI service = new EditUserAPI();
+            service.vi = vi;
+            map = service.FindUser(vi.getUserName());
+
+            if (map.size() > 0) {
+                sResponse = map.get("Errormessage").toString();
+            } else {
+                sResponse = "Record not saved";
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            sResponse = "An error occured";
+        }
+        return sResponse;
+    }
+
+    public String editRecord() {
         String sResponse = "";
         HashMap<String, Object> map = new HashMap<>();
         try {
@@ -46,4 +66,5 @@ public class CreateUser implements Serializable {
         }
         return sResponse;
     }
+
 }

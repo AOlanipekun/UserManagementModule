@@ -31,7 +31,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                     <div class="feature-list col-md-4">
 
                         <h3> 
-                            <a href="index.xhtml">
+                            <a  href="/UserManagementModule/">
                                 <i class="fa fa-dashboard"></i>
                                 <span> View users</span>
                             </a>
@@ -61,7 +61,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
 
                     <div class="card-body user" style="margin-top: 5px">
-                        <form action="api" method="post">
+                        <form action="find" method="post">
                             <div class="divc">
 
                                 <div class="row">
@@ -73,7 +73,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                     </div>
 
                                     <div class="col-25 row"> 
-                                        <input type="button" value="Search" onclick=""/><!-- comment -->
+                                        <input type="button" value="Search" onclick="#{edit.searchRecord()}"/><!-- comment -->
                                     </div>
                                 </div>
 

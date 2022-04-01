@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.deeservices.usermanagementmodule.CreateUserResource.class);
+        resources.add(com.deeservices.usermanagementmodule.EditResource.class);
         resources.add(com.deeservices.usermanagementmodule.ViewUserResource.class);
     }
 

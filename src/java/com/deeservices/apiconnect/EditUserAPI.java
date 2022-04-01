@@ -10,16 +10,12 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import org.json.JSONObject;
@@ -28,12 +24,12 @@ import org.json.JSONObject;
  *
  * @author ADEDOYIN
  */
-public class CreateUserAPI {
+public class EditUserAPI {
 
     public ViewItems vi = new ViewItems();
 
-    public HashMap<String, Object> createUser(ViewItems v) throws Exception {
-        String data = "http://localhost:8080/UserManagementModule/api/createuser/";
+    public HashMap<String, Object> FindUser(String v) throws Exception {
+        String data = "http://localhost:8080/UserManagementModule/api/edituser/search";
 //        List temp = new ArrayList();
         HashMap<String, Object> map = new HashMap<>();
         data = data.replaceAll(" ", "%20");
@@ -69,36 +65,12 @@ public class CreateUserAPI {
                 //START::::Add the POST body content
                 Map<String, Object> mBodies = new LinkedHashMap<>();
 
-                mBodies.put("username", v.getUserName());
-                mBodies.put("password", v.getPassword());
-                mBodies.put("permissions", v.getPermissions());
-                mBodies.put("fname", v.getFName());
-                mBodies.put("lname", v.getLName());
-                mBodies.put("email", v.getEmail());
-                mBodies.put("phoneno", v.getPhoneNo());
-                mBodies.put("gender", v.getGender());
-                mBodies.put("dob", v.getDOB());
-                mBodies.put("nationality", v.getNationality());
-                mBodies.put("activated", v.getActivated());
-                mBodies.put("retired", v.getRetired());
-                mBodies.put("passwordenddate", v.getPasswordEDate());
-
-                mBodies.put("LogOnOperatorID", v.getLogOnOperatorID());
+                mBodies.put("username", v);
 
                 StringBuilder postData = new StringBuilder();
 
                 JSONObject jsonIn = new JSONObject(mBodies);
-//            postData.append('{');
-//            for (Map.Entry<String, Object> mBody : mBodies.entrySet()) {
-//
-//                postData.append(URLEncoder.encode(mBody.getKey(), "UTF-8"));
-//                postData.append(':');
-//                postData.append(URLEncoder.encode(String.valueOf(mBody.getValue()), "UTF-8"));
-//                postData.append(',');
-//
-//            }
-//            postData.append('}');
-//            byte[] postDataBytes = postData.toString().replace(",}", "}").getBytes("UTF-8");
+
                 byte[] postDataBytes = jsonIn.toString().getBytes("UTF-8");
 
                 con.setDoOutput(true);
@@ -143,4 +115,4 @@ public class CreateUserAPI {
         return map;
     }
 
-  }
+}
