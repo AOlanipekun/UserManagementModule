@@ -118,6 +118,17 @@ public class UserApi {
                 System.out.println(sresponse);
                 vi.setsResponse("Error 93: User API");
                 temp.add(vi);
+            } else if (response.contains("User created Successfully")) {
+                String sresponse = "{\"StatusCode\": \"93\",\"Code\":\"Invalid Property File\",\"StatusResponse\":\"" + response + "\"}";
+                System.out.println(sresponse);
+                vi.setsResponse("User created Successfully");
+                temp.add(vi);
+            } else if (response.contains("User Updated Successfully")) {
+                String sresponse = "{\"StatusCode\": \"93\",\"Code\":\"Invalid Property File\",\"StatusResponse\":\"" + response + "\"}";
+                System.out.println(sresponse);
+                vi.setsResponse("User Updated Successfully");
+                temp.add(vi);
+
             } else if (response.contains("Error")) {
                 String sresponse = "{\"StatusCode\": \"94\",\"Code\":\"Invalid Property File\",\"StatusResponse\":\"" + response + "\"}";
                 System.out.println(sresponse);

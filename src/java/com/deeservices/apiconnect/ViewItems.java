@@ -4,6 +4,11 @@
  */
 package com.deeservices.apiconnect;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import javax.json.JsonObject;
+import org.json.JSONObject;
+
 /**
  *
  * @author ADEDOYIN
@@ -160,5 +165,49 @@ public class ViewItems {
     }
 
    
+    public ViewItems getobject(JsonObject json) {
+
+        ViewItems vi = new ViewItems();
+        vi.setFName(json.getString("fname"));
+        vi.setLName(json.getString("lname"));
+        vi.setUserName(json.getString("username"));
+        vi.setPermissions(json.getString("permissions"));
+        vi.setEmail(json.getString("email"));
+        vi.setPhoneNo(json.getString("phoneno"));
+        vi.setGender(json.getString("gender"));
+        vi.setDOB(json.getString("dob"));
+        vi.setNationality(json.getString("nationality"));
+        vi.setSetUpDate(json.getString("setupdate"));
+        vi.setActivated(json.getString("activated"));
+        vi.setUserid(json.getString("userid"));
+        vi.setsResponse("Success");
+        return vi;
+    }
+
+    public String getobjectToString(ViewItems v) {
+
+        //START::::Add the POST body content
+        Map<String, Object> mBodies = new LinkedHashMap<>();
+
+        mBodies.put("username", v.getUserName());
+        mBodies.put("password", v.getPassword());
+        mBodies.put("permissions", v.getPermissions());
+        mBodies.put("fname", v.getFName());
+        mBodies.put("lname", v.getLName());
+        mBodies.put("email", v.getEmail());
+        mBodies.put("phoneno", v.getPhoneNo());
+        mBodies.put("gender", v.getGender());
+        mBodies.put("dob", v.getDOB());
+        mBodies.put("nationality", v.getNationality());
+        mBodies.put("activated", v.getActivated());
+        mBodies.put("retired", v.getRetired());
+        mBodies.put("passwordenddate", v.getPasswordEDate());
+
+        mBodies.put("LogOnOperatorID", v.getLogOnOperatorID());
+
+        JSONObject jsonIn = new JSONObject(mBodies);
+        return jsonIn.toString();
+    }
+
 
 }

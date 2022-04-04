@@ -37,7 +37,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </div>
                 <div class="feature-list col-md-4">
                     <h3> 
-                        <a href="createuser.xhtml">
+                        <a href="/UserManagementModule/UMM/createuser.xhtml">
                             <i class="fa fa-dashboard"></i>
                             <span> Create User</span>
                         </a>
@@ -45,9 +45,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                 </div>
                 <div class="feature-list col-md-4">
                     <h3> 
-                        <a href="edituser.xhtml">
+                        <a href="/UserManagementModule/UMM/edituser.xhtml">
                             <i class="fa fa-dashboard"></i>
-                            <span> Edit User</span>
+                            <span> Edit/Retire User</span>
                         </a>
                     </h3>
 
@@ -55,7 +55,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
 
             </div>
             <div class="row" style="margin-top:5px">
-                <label id="emessage" style="font-weight: bold"></label>
                 <div class="col-md-12">
                     <div class="card">
 
@@ -72,7 +71,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <h:outputText  value="" />
                                     </f:facet>
                                 </p:ajaxStatus>
-                                <h:form id="myform" prependId="false">
+                                <h:form id="myform" >
 
                                     <p:panelGrid id="reportPanel" styleClass="userGrid" columns="3" >
 
@@ -81,11 +80,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <h:inputText id="uname" value="#{edit.vi.userName}" />
 
                                         <h:commandButton value="Search" action="#{edit.searchRecord()}" >
-                                            <p:ajax update="reportPanel1 emessage messages" process="@parent"/>
+                                            <p:ajax update="reportPanel1 emessage  messages" process="@parent"/>
                                         </h:commandButton>
 
                                     </p:panelGrid>
                                     <p:panelGrid id="reportPanel1" styleClass="userGrid" columns="2" >
+
+                                        <h:outputText value="Password: " />
+                                        <h:inputText value="#{create.vi.password}" />
 
                                         <h:outputText value="Permission ID: "/>
                                         <h:inputText value="#{edit.vi.permissions}" />
@@ -109,12 +111,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit t
                                         <h:inputText value="#{edit.vi.gender}" />
 
                                         <h:outputText value="DOB "/>
-                                        <h:inputText value="#{edit.vi.DOB}" />
+                                        <p:calendar value="#{edit.vi.DOB}" />
+
+                                        <h:outputText value="Activated: " />
+                                        <h:selectBooleanCheckbox value="#{create.vi.activated}" />
+
+                                        <h:outputText value="Retired: " />
+                                        <h:selectBooleanCheckbox value="#{create.vi.retired}" />
+                                        
+                                        <h:outputText value="Password End Date: " />
+                                        <p:calendar value="#{create.vi.passwordEDate}" />
 
                                     </p:panelGrid>
-                                    <p:panelGrid styleClass="userGrid" columns="1" >
-
-                                        <h:commandButton value="EDIT" action="#{edit.editRecord()}"/>
+                                    <p:panelGrid id="reportPanel2" styleClass="userGrid" columns="1" >
+                                        <h:commandButton value="EDIT" action="#{edit.editRecord()}">
+                                            <p:ajax update=" emessage  messages" process="@form reportPanel1"/>
+                                        </h:commandButton>
                                     </p:panelGrid>
                                 </h:form>
                             </div>
