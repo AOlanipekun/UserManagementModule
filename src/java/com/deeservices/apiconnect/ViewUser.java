@@ -61,15 +61,6 @@ public class ViewUser implements Serializable {
         this.setIsDisplayViewGroupPanel(false);
     }
 
-    public List<HashMap<String, Object>> getAll() {
-        List<HashMap<String, Object>> age = null;
-        try {
-            age = new ViewUserApi().viewUser();
-        } catch (Exception e) {
-        }
-        return age;
-    }
-
     public List<ViewItems> getDisList() {
         return disList;
     }
@@ -81,8 +72,8 @@ public class ViewUser implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            ViewUserApi service = new ViewUserApi();
-            disList = service.viewUseritems();
+            UserApi service = new UserApi();
+            disList = service.viewUseritems("view", "{\"body\":\"none\"}");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

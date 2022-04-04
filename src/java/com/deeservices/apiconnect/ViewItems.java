@@ -20,7 +20,15 @@ public class ViewItems {
             Nationality,
             PasswordEndDate,
             SetUpDate, Permissions, userid, Retired,
-            Activated, LogOnOperatorID;
+            Activated, LogOnOperatorID, sResponse;
+
+    public String getsResponse() {
+        return sResponse;
+    }
+
+    public void setsResponse(String sResponse) {
+        this.sResponse = sResponse;
+    }
 
 
     public String getUserName() {

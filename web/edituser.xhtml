@@ -4,178 +4,126 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
 -->
 <!DOCTYPE html>
-<html  xmlns="http://www.w3.org/1999/xhtml"
-       xmlns:h="http://java.sun.com/jsf/html"
-       xmlns:f="http://java.sun.com/jsf/core"
-       xmlns:ui="http://java.sun.com/jsf/facelets"
-       xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>UMM | User Management</title>
+        <!--<meta charset="UTF-8"> </meta>-->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+        <link rel="stylesheet" href="resources/css/main.css"/>
 
-    <f:view contentType="text/html">
-        <head>
-            <title>UMM | User Management</title>
-            <!--<meta charset="UTF-8"> </meta>-->
-            <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
-            <link rel="stylesheet" href="resources/css/main.css"/>
+    </h:head>
+    <body class="hold-transition skin-blue sidebar-mini">
 
-        </head>
-        <h:body class="hold-transition skin-blue sidebar-mini">
-
-            <h:form>
-                <div title="user management" class="new-user-landing-row row">
-                    <div class="w3-col herodiv">
-                        <h1>USER MANAGEMENT MODULE</h1>
-                    </div>
+        <form>
+            <div title="user management" class="new-user-landing-row row">
+                <div class="herodiv">
+                    <h1>USER MANAGEMENT MODULE</h1>
                 </div>
-                <div class=" row ws-black"> 
+            </div>
+            <div class=" row ws-black"> 
 
-                    <div class="feature-list col-md-4">
+                <div class="feature-list col-md-4">
 
-                        <h3> 
-                            <a  href="/UserManagementModule/">
-                                <i class="fa fa-dashboard"></i>
-                                <span> View users</span>
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="feature-list col-md-4">
-                        <h3> 
-                            <a href="createuser.xhtml">
-                                <i class="fa fa-dashboard"></i>
-                                <span> Create User</span>
-                            </a>
-                        </h3>
-                    </div>
-                    <div class="feature-list col-md-4">
-                        <h3> 
-                            <a href="edituser.xhtml">
-                                <i class="fa fa-dashboard"></i>
-                                <span> Edit User</span>
-                            </a>
-                        </h3>
-
-                    </div>
+                    <h3> 
+                        <a  href="/UserManagementModule/">
+                            <i class="fa fa-dashboard"></i>
+                            <span> View users</span>
+                        </a>
+                    </h3>
+                </div>
+                <div class="feature-list col-md-4">
+                    <h3> 
+                        <a href="createuser.xhtml">
+                            <i class="fa fa-dashboard"></i>
+                            <span> Create User</span>
+                        </a>
+                    </h3>
+                </div>
+                <div class="feature-list col-md-4">
+                    <h3> 
+                        <a href="edituser.xhtml">
+                            <i class="fa fa-dashboard"></i>
+                            <span> Edit User</span>
+                        </a>
+                    </h3>
 
                 </div>
-                <div class="row" style="margin-top:5px">
-                    <label id="emessage" style="font-weight: bold"></label>
 
+            </div>
+            <div class="row" style="margin-top:5px">
+                <label id="emessage" style="font-weight: bold"></label>
+                <div class="col-md-12">
+                    <div class="card">
 
-                    <div class="card-body user" style="margin-top: 5px">
-                        <form action="find" method="post">
-                            <div class="divc">
+                        <div class="card-body user" style="margin-top: 5px">
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label for="username">Username: </label>
-                                    </div>
-                                    <div class="col-25">
-                                        <input id="username"  type="text" name="username" placeholder="User Name.." />
-                                    </div>
+                            <div>
+                                <h:outputText class="#{flash.styleclass}" id="messages" value="#{flash.responsemessage}" />                        
+                                <h:messages styleClass="alert_error" id="emessage"/>
+                                <p:ajaxStatus >
+                                    <f:facet name="start">
+                                        <h:outputText styleClass="alert_info" value="Loading ........" />
+                                    </f:facet>
+                                    <f:facet name="complete">
+                                        <h:outputText  value="" />
+                                    </f:facet>
+                                </p:ajaxStatus>
+                                <h:form id="myform" prependId="false">
 
-                                    <div class="col-25 row"> 
-                                        <input type="button" value="Search" onclick="#{edit.searchRecord()}"/><!-- comment -->
-                                    </div>
-                                </div>
+                                    <p:panelGrid id="reportPanel" styleClass="userGrid" columns="3" >
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label for="password"> Password: </label>
-                                    </div>
-                                    <div class="col-75"> 
-                                        <input id="password"  type="password" name="password" placeholder="password.."/>
-                                    </div>
-                                </div>
+                                        <h:outputText value="Username: " />
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>Permission ID: </label></div>
-                                    <div class="col-75"> 
-                                        <input name="permissions"  type="number"
-                                               placeholder="where 0=customer, 1=admin"/>
-                                    </div>
-                                </div>
+                                        <h:inputText id="uname" value="#{edit.vi.userName}" />
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>First Name: </label>
-                                    </div>
-                                    <div class="col-75">
-                                        <input name="fname"  type="text" />
-                                    </div>
-                                </div>
+                                        <h:commandButton value="Search" action="#{edit.searchRecord()}" >
+                                            <p:ajax update="reportPanel1 emessage messages" process="@parent"/>
+                                        </h:commandButton>
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>Last Name: </label>
-                                    </div>
-                                    <div class="col-75"> 
-                                        <input name="lname" type="text" />
-                                    </div>
-                                </div>
+                                    </p:panelGrid>
+                                    <p:panelGrid id="reportPanel1" styleClass="userGrid" columns="2" >
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>Email: </label>
-                                    </div>
-                                    <div class="col-75"> 
-                                        <input name="email"  type="text"/>
-                                    </div>
-                                </div>
+                                        <h:outputText value="Permission ID: "/>
+                                        <h:inputText value="#{edit.vi.permissions}" />
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>Phone No: </label>
-                                    </div>
-                                    <div class="col-75">
-                                        <input name="phoneno"  type="text"/>
-                                    </div>
-                                </div>
+                                        <h:outputText value="First Name: "/>
+                                        <h:inputText value="#{edit.vi.FName}"  />
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>Nationality: </label>
-                                    </div>
-                                    <div class="col-75">
-                                        <input name="nationality"  type="text"/>
-                                    </div>
-                                </div>
+                                        <h:outputText value="Last Name: "/>
+                                        <h:inputText value="#{edit.vi.LName}" />
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>Gender: </label> 
-                                    </div>
-                                    <div class="col-75">   
-                                        <input name="gender"  type="text"/>
-                                    </div>
-                                </div>
+                                        <h:outputText value="Email: "/>
+                                        <h:inputText value="#{edit.vi.email}" />
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>DOB </label>  
-                                    </div>
-                                    <div class="col-75">   
-                                        <input name="dob"  type="datetime"/>
-                                    </div>
-                                </div>
+                                        <h:outputText value="Phone No: "/>
+                                        <h:inputText value="#{edit.vi.phoneNo}"  />
 
-                                <div class="row">
-                                    <div class="col-25">
-                                        <label>Password End Date : </label>  
-                                    </div>
-                                    <div class="col-75">   
-                                        <input name="passwordenddate"  type="datetime"/>
-                                    </div>
-                                </div>
+                                        <h:outputText value="Nationality: "/>
+                                        <h:inputText value="#{edit.vi.nationality}" />
 
-                                <input type="submit"  onclick="#{create.createRecord()}"/>
+                                        <h:outputText value="Gender: "/>
+                                        <h:inputText value="#{edit.vi.gender}" />
 
+                                        <h:outputText value="DOB "/>
+                                        <h:inputText value="#{edit.vi.DOB}" />
+
+                                    </p:panelGrid>
+                                    <p:panelGrid styleClass="userGrid" columns="1" >
+
+                                        <h:commandButton value="EDIT" action="#{edit.editRecord()}"/>
+                                    </p:panelGrid>
+                                </h:form>
                             </div>
-                        </form>
+                        </div>
                     </div>
-
                 </div>
 
-            </h:form>
-        </h:body>
-    </f:view>
+            </div>
+
+        </form>
+    </body>
 </html>

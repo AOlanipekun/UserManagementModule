@@ -528,3 +528,10 @@ input[type=submit], input[type=button]:hover {
     background-color: rgba(0,0,0,0.2);
     color: #fff;
 }
+.userGrid{
+    width:50%;
+}
+.userGrid tr, .userGrid td {
+    border: none;
+    vertical-align: top;
+}
